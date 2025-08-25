@@ -1,0 +1,464 @@
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.title-section {
+    flex: 1;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.motivational-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.8;
+    margin-top: 15px;
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+}
+
+/* Botón de cambio de idioma */
+.btn-language {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    min-width: 160px;
+}
+
+.btn-language:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Secciones principales */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.phrase-section,
+.story-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.phrase-section:hover,
+.story-section:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    color: #4a5568;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.help-text {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Botones */
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    min-width: 200px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+
+
+.btn-story-es {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    display: inline-block;
+    margin: 0;
+}
+
+.btn-story-es:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn-story-fr {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+    display: inline-block;
+    margin: 0;
+}
+
+.btn-story-fr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+/* Resultados */
+.result-box {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border-left: 5px solid #667eea;
+}
+
+.result-box.hidden {
+    display: none;
+}
+
+.result-box h3 {
+    color: #4a5568;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Visualización de frases */
+.phrase-display {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    border: 2px solid #e2e8f0;
+    line-height: 1.8;
+}
+
+.phrase-display strong {
+    font-size: 1.4rem;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tiempo-verbal {
+    font-size: 1.2rem;
+    color: #667eea;
+    font-weight: 600;
+    background: #f0f4ff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.conjugator-link {
+    display: block;
+    text-align: center;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.conjugator-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Conceptos para historias */
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.concept-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-3px);
+    border-color: #667eea;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+.concept-card h4 {
+    color: #4a5568;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.concept-card p {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.concept-card small {
+    color: #888;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 8px;
+}
+
+/* Tarjeta especial para tiempo verbal */
+.tiempo-card {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+}
+
+.tiempo-card h4 {
+    color: #c53030;
+}
+
+.tiempo-card p {
+    color: #e53e3e;
+    font-size: 1.1rem;
+}
+
+/* Instrucciones de historia */
+.story-instructions {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #e2e8f0;
+}
+
+.story-instructions h4 {
+    color: #4a5568;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.story-instructions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.story-instructions li {
+    padding: 8px 0;
+    color: #666;
+    position: relative;
+    padding-left: 25px;
+}
+
+.story-instructions li:before {
+    content: "✨";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: white;
+    opacity: 0.8;
+}
+
+.coffee-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.coffee-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+
+.coffee-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Crédito del desarrollador */
+.developer-credit {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.developer-credit p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.developer-credit a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.developer-credit a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        min-width: 250px;
+    }
+    
+    .concepts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .phrase-section,
+    .story-section {
+        padding: 20px;
+    }
+    
+    .btn-language {
+        min-width: 140px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        min-width: 200px;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
+    .phrase-display strong {
+        font-size: 1.2rem;
+    }
+    
+    .tiempo-verbal {
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+} 

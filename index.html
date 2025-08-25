@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuentaHistorias - Generador de Frases e Historias</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="title-section">
+                    <h1>📚 CuentaHistorias</h1>
+                    <p class="subtitle">Genera frases y crea historias creativas</p>
+                    <p class="motivational-quote">Aprender el idioma es abrir la puerta a la verdadera integración</p>
+                </div>
+                <button id="languageToggle" class="btn-language">🌐 Cambiar Idioma</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Sección de Generación de Frases -->
+            <section class="phrase-section">
+                <h2>🎯 Generar Frases</h2>
+                <p class="help-text">
+                    Presiona uno de los botones para generar una frase con pronombre + verbo + tiempo verbal. 
+                    El alumno debe practicar la conjugación en voz alta.
+                </p>
+                
+                <div class="buttons-container">
+                    <button id="spanishBtn" class="btn btn-primary">🇪🇸 Frase en Español</button>
+                    <button id="frenchBtn" class="btn btn-secondary">🇫🇷 Phrase en Français</button>
+                </div>
+
+                <div id="phraseResult" class="result-box hidden">
+                    <h3>Tu frase:</h3>
+                    <div id="phraseText" class="phrase-display"></div>
+                    <a id="conjugatorLink" href="#" target="_blank" class="conjugator-link">
+                        🔗 Ver conjugación completa
+                    </a>
+                </div>
+            </section>
+
+            <!-- Sección de Generación de Historias -->
+            <section class="story-section">
+                <h2>📖 Generar Historias</h2>
+                <p class="help-text">
+                    Presiona uno de los botones para obtener 3 conceptos aleatorios y un tiempo verbal en el idioma seleccionado. 
+                    Luego inventa una mini historia que incluya esos conceptos y use el tiempo verbal indicado.
+                </p>
+                
+                <div class="buttons-container">
+                    <button id="generateStorySpanishBtn" class="btn btn-story-es">🇪🇸 Generar Historia en Español</button>
+                    <button id="generateStoryFrenchBtn" class="btn btn-story-fr">🇫🇷 Générer Histoire en Français</button>
+                </div>
+
+                <div id="storyResult" class="result-box hidden">
+                    <h3>Tus conceptos para la historia:</h3>
+                    <div id="conceptsContainer" class="concepts-grid"></div>
+                    <div class="story-instructions">
+                        <h4>📝 Instrucciones:</h4>
+                        <ul>
+                            <li>Crea una mini historia usando los 3 conceptos</li>
+                            <li>Usa el tiempo verbal indicado</li>
+                            <li>¡Sé creativo y diviértete!</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="coffee-links">
+                <a href="https://ko-fi.com/mankelab" target="_blank" class="coffee-link">
+                    ☕ Invítame un café - MankeLab
+                </a>
+            </div>
+            <div class="developer-credit">
+                <p>Desarrollado por <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> con ❤️ para todos los que siguen sus sueños</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
