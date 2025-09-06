@@ -1,23 +1,3 @@
-// Base de datos de verbos
-const verbos = {
-    español: [
-        'ser', 'estar', 'tener', 'hacer', 'decir', 'ir', 'ver', 'dar', 'saber', 'querer',
-        'llegar', 'pasar', 'deber', 'poner', 'parecer', 'quedar', 'creer', 'hablar', 'llevar',
-        'dejar', 'seguir', 'encontrar', 'llamar', 'venir', 'pensar', 'salir', 'volver', 'tomar',
-        'conocer', 'vivir', 'sentir', 'tratar', 'mirar', 'esperar', 'contar', 'empezar', 'buscar',
-        'existir', 'entrar', 'trabajar', 'escribir', 'perder', 'producir', 'ocurrir', 'entender',
-        'pedir', 'recibir', 'mantener', 'resultar', 'leer', 'caer', 'cambiar', 'presentar'
-    ],
-    francés: [
-        'être', 'avoir', 'faire', 'dire', 'aller', 'voir', 'savoir', 'vouloir', 'pouvoir',
-        'devoir', 'venir', 'suivre', 'parler', 'prendre', 'regarder', 'appeler', 'arriver',
-        'rester', 'entrer', 'sortir', 'partir', 'revenir', 'devenir', 'recevoir', 'répondre',
-        'comprendre', 'apprendre', 'permettre', 'demander', 'chercher', 'trouver', 'donner',
-        'mettre', 'passer', 'commencer', 'continuer', 'finir', 'ouvrir', 'fermer', 'monter',
-        'descendre', 'attendre', 'servir', 'vivre', 'mourir', 'naître', 'grandir', 'vieillir',
-        'travailler', 'étudier', 'enseigner', 'apprendre', 'écrire', 'lire'
-    ]
-};
 
 // Tiempos verbales
 const tiemposVerbos = {
@@ -65,11 +45,6 @@ const conceptos = {
     ]
 };
 
-// Pronombres
-const pronombres = {
-    español: ['yo', 'tú', 'él', 'ella', 'usted', 'nosotros', 'nosotras', 'vosotros', 'vosotras', 'ellos', 'ellas', 'ustedes'],
-    francés: ['je', 'tu', 'il', 'elle', 'nous', 'vous', 'ils', 'elles']
-};
 
 // Traducciones de la interfaz
 const traducciones = {
@@ -77,22 +52,15 @@ const traducciones = {
         titulo: '📚 CuentaHistorias',
         subtitulo: 'Genera frases y crea historias creativas',
         fraseMotivacional: 'Aprender el idioma es abrir la puerta a la verdadera integración',
-        generarFrases: '🎯 Generar Frases',
         generarHistorias: '📖 Generar Historias',
-        ayudaFrases: 'Crea una frase a partir de un verbo y un tiempo verbal. Animate y dilo en voz alta',
         ayudaHistorias: 'Descubre 3 conceptos para tu historia',
-        botonEspanol: '🇪🇸 Frase en Español',
-        botonFrances: '🇫🇷 Phrase en Français',
         botonHistoriasEspanol: '🇪🇸 Generar Historia en Español',
         botonHistoriasFrances: '🇫🇷 Générer Histoire en Français',
-        tuFrase: 'Tu frase:',
         tusConceptos: 'Tus conceptos para la historia:',
         instrucciones: '📝 Instrucciones:',
         instruccion1: 'Crea una mini historia usando los 3 conceptos',
         instruccion2: 'Usa el tiempo verbal indicado',
         instruccion3: '¡Sé creativo y diviértete!',
-        verConjugacion: '🔗 Ver conjugación completa',
-        verConjugacionFR: '🔗 Voir la conjugaison complète',
         tiempoVerbal: 'Tiempo Verbal:',
         footer: 'Desarrollado por ocaranza.cl con ❤️ para todos los que siguen sus sueños',
         concepto: 'Concepto',
@@ -102,22 +70,15 @@ const traducciones = {
         titulo: '📚 CompteHistoires',
         subtitulo: 'Générez des phrases et créez des histoires créatives',
         fraseMotivacional: 'Apprendre la langue, c\'est ouvrir la porte à la véritable intégration',
-        generarFrases: '🎯 Générer des Phrases',
         generarHistorias: '📖 Générer des Histoires',
-        ayudaFrases: 'Crée une phrase à partir d\'un verbe et d\'un temps verbal. Ose et dis-la à voix haute',
         ayudaHistorias: 'Découvre 3 concepts pour ton histoire',
-        botonEspanol: '🇪🇸 Phrase en Espagnol',
-        botonFrances: '🇫🇷 Phrase en Français',
         botonHistoriasEspanol: '🇪🇸 Generar Historia en Español',
         botonHistoriasFrances: '🇫🇷 Générer Histoire en Français',
-        tuFrase: 'Ta phrase:',
         tusConceptos: 'Tes concepts pour l\'histoire:',
         instrucciones: '📝 Instructions:',
         instruccion1: 'Crée une mini histoire en utilisant les 3 concepts',
         instruccion2: 'Utilise le temps verbal indiqué',
         instruccion3: 'Sois créatif et amuse-toi !',
-        verConjugacion: '🔗 Voir la conjugaison complète',
-        verConjugacionFR: '🔗 Voir la conjugaison complète',
         tiempoVerbal: 'Temps Verbal:',
         footer: 'Développé par ocaranza.cl avec ❤️ pour tous ceux qui poursuivent leurs rêves',
         concepto: 'Concept',
@@ -129,11 +90,6 @@ const traducciones = {
 let idiomaInterfaz = 'español';
 
 // Elementos del DOM
-const spanishBtn = document.getElementById('spanishBtn');
-const frenchBtn = document.getElementById('frenchBtn');
-const phraseResult = document.getElementById('phraseResult');
-const phraseText = document.getElementById('phraseText');
-const conjugatorLink = document.getElementById('conjugatorLink');
 const storyResult = document.getElementById('storyResult');
 const conceptsContainer = document.getElementById('conceptsContainer');
 
@@ -142,28 +98,6 @@ function getRandomElement(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-// Función para generar frase
-function generarFrase(idioma) {
-    const pronombre = getRandomElement(pronombres[idioma]);
-    const verbo = getRandomElement(verbos[idioma]);
-    const tiempoVerbal = getRandomElement(tiemposVerbos[idioma]);
-    
-    // Mostrar resultado en el formato solicitado
-    phraseText.innerHTML = `<strong>"${pronombre}" + "${verbo}"</strong><br><span class="tiempo-verbal">(${tiempoVerbal})</span>`;
-    phraseResult.classList.remove('hidden');
-    
-    // Configurar enlace al conjugador
-    if (idioma === 'francés') {
-        conjugatorLink.href = `https://conjugador.reverso.net/conjugacion-frances.html`;
-        conjugatorLink.textContent = traducciones[idiomaInterfaz].verConjugacionFR;
-    } else {
-        conjugatorLink.href = `https://conjugador.reverso.net/conjugacion-espanol.html`;
-        conjugatorLink.textContent = traducciones[idiomaInterfaz].verConjugacion;
-    }
-    
-    // Scroll suave al resultado
-    phraseResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
 
 // Función para generar conceptos para historia
 function generarConceptos(idioma) {
@@ -188,6 +122,14 @@ function generarConceptos(idioma) {
         conceptCard.innerHTML = `
             <h4>${traducciones[idiomaInterfaz].concepto} ${index + 1}</h4>
             <p>${concepto}</p>
+            <div class="validation-ticket">
+                <div class="ticket-checkbox">
+                    <input type="checkbox" id="concept-${index}" class="concept-checkbox">
+                    <label for="concept-${index}" class="checkbox-label">
+                        <span class="checkmark">✓</span>
+                    </label>
+                </div>
+            </div>
         `;
         conceptsContainer.appendChild(conceptCard);
     });
@@ -199,14 +141,128 @@ function generarConceptos(idioma) {
         <h4>${traducciones[idiomaInterfaz].tiempoVerbal}</h4>
         <p>${tiempoVerbal}</p>
         <small>${idioma === 'español' ? '🇪🇸' : '🇫🇷'} ${idioma}</small>
+        <div class="extra-points-badge">
+            <span class="extra-points-text">${idiomaInterfaz === 'español' ? '⭐ Puntos Extra!' : '⭐ Points Bonus!'}</span>
+        </div>
+        <div class="validation-ticket">
+            <div class="ticket-checkbox">
+                <input type="checkbox" id="tiempo-${Date.now()}" class="concept-checkbox">
+                <label for="tiempo-${Date.now()}" class="checkbox-label">
+                    <span class="checkmark">✓</span>
+                </label>
+            </div>
+        </div>
     `;
     conceptsContainer.appendChild(tiempoCard);
     
     // Mostrar resultado
     storyResult.classList.remove('hidden');
     
+    // Agregar event listeners a los checkboxes
+    agregarEventListenersConceptos();
+    
     // Scroll suave al resultado
     storyResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Función para agregar event listeners a los conceptos
+function agregarEventListenersConceptos() {
+    const checkboxes = document.querySelectorAll('.concept-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const conceptCard = this.closest('.concept-card');
+            if (this.checked) {
+                conceptCard.classList.add('completed');
+            } else {
+                conceptCard.classList.remove('completed');
+            }
+            
+            // Verificar si se completaron los 3 conceptos principales
+            verificarCompletado();
+        });
+    });
+}
+
+// Función para verificar si se completaron los 3 conceptos principales
+function verificarCompletado() {
+    const conceptCards = document.querySelectorAll('.concept-card:not(.tiempo-card)');
+    const completedCards = document.querySelectorAll('.concept-card:not(.tiempo-card).completed');
+    
+    if (conceptCards.length === 3 && completedCards.length === 3) {
+        // Mostrar mensaje de celebración
+        mostrarMensajeCelebracion();
+        
+        // Lanzar confeti
+        lanzarConfeti();
+    }
+}
+
+// Función para mostrar mensaje de celebración
+function mostrarMensajeCelebracion() {
+    const mensaje = document.createElement('div');
+    mensaje.className = 'celebration-message';
+    mensaje.innerHTML = `
+        <div class="celebration-content">
+            <h3>🎉 ¡Excelente! 🎉</h3>
+            <p>${idiomaInterfaz === 'español' ? '¡Has usado todos los conceptos en tu historia!' : 'Tu as utilisé tous les concepts dans ton histoire!'}</p>
+            <div class="celebration-emoji">✨🌟✨</div>
+        </div>
+    `;
+    
+    // Insertar después de los conceptos
+    conceptsContainer.parentNode.insertBefore(mensaje, conceptsContainer.nextSibling);
+    
+    // Remover mensaje después de 4 segundos
+    setTimeout(() => {
+        if (mensaje.parentNode) {
+            mensaje.parentNode.removeChild(mensaje);
+        }
+    }, 4000);
+}
+
+// Función para lanzar confeti
+function lanzarConfeti() {
+    // Configuración del confeti
+    const count = 200;
+    const defaults = {
+        origin: { y: 0.7 }
+    };
+
+    function fire(particleRatio, opts) {
+        confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio)
+        });
+    }
+
+    // Secuencia de confeti
+    fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+    });
+
+    fire(0.2, {
+        spread: 60,
+    });
+
+    fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8
+    });
+
+    fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2
+    });
+
+    fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+    });
 }
 
 // Función para cambiar idioma de la interfaz
@@ -224,12 +280,6 @@ function aplicarTraduccion() {
     document.querySelector('.subtitle').textContent = t.subtitulo; // Restaurar subtítulo
     document.querySelector('.motivational-quote').textContent = t.fraseMotivacional;
     
-    // Sección de frases
-    document.querySelector('.phrase-section h2').textContent = t.generarFrases;
-    document.querySelector('.phrase-section .help-text').textContent = t.ayudaFrases;
-    document.getElementById('spanishBtn').textContent = t.botonEspanol;
-    document.getElementById('frenchBtn').textContent = t.botonFrances;
-    document.querySelector('.phrase-section h3').textContent = t.tuFrase;
     
     // Sección de historias
     document.querySelector('.story-section h2').textContent = t.generarHistorias;
@@ -259,15 +309,6 @@ function aplicarTraduccion() {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Botón para generar frase en español
-    spanishBtn.addEventListener('click', () => {
-        generarFrase('español');
-    });
-    
-    // Botón para generar frase en francés
-    frenchBtn.addEventListener('click', () => {
-        generarFrase('francés');
-    });
     
     // Botón para generar conceptos de historia en español
     document.getElementById('generateStorySpanishBtn').addEventListener('click', () => {

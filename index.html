@@ -20,27 +20,6 @@
         </header>
 
         <main>
-            <!-- Sección de Generación de Frases -->
-            <section class="phrase-section">
-                <h2>🎯 Generar Frases</h2>
-                <p class="help-text">
-                    Presiona uno de los botones para generar una frase con pronombre + verbo + tiempo verbal. 
-                    El alumno debe practicar la conjugación en voz alta.
-                </p>
-                
-                <div class="buttons-container">
-                    <button id="spanishBtn" class="btn btn-primary">🇪🇸 Frase en Español</button>
-                    <button id="frenchBtn" class="btn btn-secondary">🇫🇷 Phrase en Français</button>
-                </div>
-
-                <div id="phraseResult" class="result-box hidden">
-                    <h3>Tu frase:</h3>
-                    <div id="phraseText" class="phrase-display"></div>
-                    <a id="conjugatorLink" href="#" target="_blank" class="conjugator-link">
-                        🔗 Ver conjugación completa
-                    </a>
-                </div>
-            </section>
 
             <!-- Sección de Generación de Historias -->
             <section class="story-section">
@@ -82,6 +61,7 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
