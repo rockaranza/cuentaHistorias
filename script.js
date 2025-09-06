@@ -89,9 +89,9 @@ const traducciones = {
 // Estado del idioma de la interfaz
 let idiomaInterfaz = 'español';
 
-// Elementos del DOM
-const storyResult = document.getElementById('storyResult');
-const conceptsContainer = document.getElementById('conceptsContainer');
+// Elementos del DOM (se inicializarán en DOMContentLoaded)
+let storyResult;
+let conceptsContainer;
 
 // Función para obtener elemento aleatorio de un array
 function getRandomElement(array) {
@@ -113,6 +113,9 @@ function generarConceptos(idioma) {
     
     // Seleccionar tiempo verbal del idioma seleccionado
     const tiempoVerbal = getRandomElement(tiemposVerbos[idioma]);
+    
+    // Verificar que el contenedor existe
+    if (!conceptsContainer) return;
     
     // Crear tarjetas para cada concepto
     conceptsContainer.innerHTML = '';
@@ -156,13 +159,15 @@ function generarConceptos(idioma) {
     conceptsContainer.appendChild(tiempoCard);
     
     // Mostrar resultado
-    storyResult.classList.remove('hidden');
+    if (storyResult) {
+        storyResult.classList.remove('hidden');
+        
+        // Scroll suave al resultado
+        storyResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
     
     // Agregar event listeners a los checkboxes
     agregarEventListenersConceptos();
-    
-    // Scroll suave al resultado
-    storyResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Función para agregar event listeners a los conceptos
@@ -210,7 +215,9 @@ function mostrarMensajeCelebracion() {
     `;
     
     // Insertar después de los conceptos
-    conceptsContainer.parentNode.insertBefore(mensaje, conceptsContainer.nextSibling);
+    if (conceptsContainer && conceptsContainer.parentNode) {
+        conceptsContainer.parentNode.insertBefore(mensaje, conceptsContainer.nextSibling);
+    }
     
     // Remover mensaje después de 4 segundos
     setTimeout(() => {
@@ -282,46 +289,76 @@ function aplicarTraduccion() {
     
     
     // Sección de historias
-    document.querySelector('.story-section h2').textContent = t.generarHistorias;
-    document.querySelector('.story-section .help-text').textContent = t.ayudaHistorias;
-    document.getElementById('generateStorySpanishBtn').textContent = t.botonHistoriasEspanol;
-    document.getElementById('generateStoryFrenchBtn').textContent = t.botonHistoriasFrances;
-    document.querySelector('.story-section h3').textContent = t.tusConceptos;
-    document.querySelector('.story-instructions h4').textContent = t.instrucciones;
+    const storySectionH2 = document.querySelector('.story-section h2');
+    if (storySectionH2) storySectionH2.textContent = t.generarHistorias;
+    
+    const storyHelpText = document.querySelector('.story-section .help-text');
+    if (storyHelpText) storyHelpText.textContent = t.ayudaHistorias;
+    
+    const spanishStoryBtn = document.getElementById('generateStorySpanishBtn');
+    if (spanishStoryBtn) spanishStoryBtn.textContent = t.botonHistoriasEspanol;
+    
+    const frenchStoryBtn = document.getElementById('generateStoryFrenchBtn');
+    if (frenchStoryBtn) frenchStoryBtn.textContent = t.botonHistoriasFrances;
+    
+    const storySectionH3 = document.querySelector('.story-section h3');
+    if (storySectionH3) storySectionH3.textContent = t.tusConceptos;
+    
+    const storyInstructionsH4 = document.querySelector('.story-instructions h4');
+    if (storyInstructionsH4) storyInstructionsH4.textContent = t.instrucciones;
     
     // Instrucciones
     const instrucciones = document.querySelectorAll('.story-instructions li');
-    instrucciones[0].textContent = t.instruccion1;
-    instrucciones[1].textContent = t.instruccion2;
-    instrucciones[2].textContent = t.instruccion3;
+    if (instrucciones.length >= 3) {
+        instrucciones[0].textContent = t.instruccion1;
+        instrucciones[1].textContent = t.instruccion2;
+        instrucciones[2].textContent = t.instruccion3;
+    }
     
     // Footer
     const footerText = document.querySelector('.developer-credit p');
-    if (idiomaInterfaz === 'español') {
-        footerText.innerHTML = 'Desarrollado por <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> con ❤️ para todos los que siguen sus sueños';
-    } else {
-        footerText.innerHTML = 'Développé par <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> avec ❤️ pour tous ceux qui poursuivent leurs rêves';
+    if (footerText) {
+        if (idiomaInterfaz === 'español') {
+            footerText.innerHTML = 'Desarrollado por <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> con ❤️ para todos los que siguen sus sueños';
+        } else {
+            footerText.innerHTML = 'Développé par <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> avec ❤️ pour tous ceux qui poursuivent leurs rêves';
+        }
     }
     
     // Botón de cambio de idioma
-    document.getElementById('languageToggle').textContent = t.cambiarIdioma;
+    const languageToggle = document.getElementById('languageToggle');
+    if (languageToggle) {
+        languageToggle.textContent = t.cambiarIdioma;
+    }
 }
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar elementos del DOM
+    storyResult = document.getElementById('storyResult');
+    conceptsContainer = document.getElementById('conceptsContainer');
     
     // Botón para generar conceptos de historia en español
-    document.getElementById('generateStorySpanishBtn').addEventListener('click', () => {
-        generarConceptos('español');
-    });
+    const spanishStoryBtn = document.getElementById('generateStorySpanishBtn');
+    if (spanishStoryBtn) {
+        spanishStoryBtn.addEventListener('click', () => {
+            generarConceptos('español');
+        });
+    }
     
     // Botón para generar conceptos de historia en francés
-    document.getElementById('generateStoryFrenchBtn').addEventListener('click', () => {
-        generarConceptos('francés');
-    });
+    const frenchStoryBtn = document.getElementById('generateStoryFrenchBtn');
+    if (frenchStoryBtn) {
+        frenchStoryBtn.addEventListener('click', () => {
+            generarConceptos('francés');
+        });
+    }
     
     // Botón para cambiar idioma de la interfaz
-    document.getElementById('languageToggle').addEventListener('click', cambiarIdiomaInterfaz);
+    const languageToggle = document.getElementById('languageToggle');
+    if (languageToggle) {
+        languageToggle.addEventListener('click', cambiarIdiomaInterfaz);
+    }
     
     // Efectos de hover en las tarjetas de conceptos
     document.addEventListener('mouseover', function(e) {
