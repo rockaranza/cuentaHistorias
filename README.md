@@ -1,20 +1,20 @@
 # 📚 CuentaHistorias
 
-Aplicación web para generar frases y crear historias creativas en español y francés.
+Aplicación web para crear historias creativas en español y francés.
 
 ## 🎯 Funcionalidades
 
-- **Generación de Frases**: Crea frases con pronombre + verbo en infinitivo
+- **Generación de Historias**: Obtén 3 conceptos aleatorios y un tiempo verbal para crear mini historias
 - **Idiomas**: Español y Francés
-- **Generación de Historias**: Obtén 3 conceptos aleatorios para crear mini historias
-- **Conjugador**: Enlaces directos al conjugador de Reverso
+- **Sistema Interactivo**: Marca los conceptos utilizados y recibe retroalimentación
+- **Interfaz Bilingüe**: Cambia dinámicamente entre español y francés
 
 ## 🚀 Uso
 
 1. Abre `index.html` en tu navegador
-2. Usa los botones para generar frases en español o francés
+2. Selecciona el idioma con el botón de cambio de idioma
 3. Genera conceptos para crear historias creativas
-4. Haz clic en los enlaces para ver conjugaciones completas
+4. Marca los conceptos que uses en tu historia
 
 ## 🛠️ Tecnologías
 
@@ -26,15 +26,24 @@ Aplicación web para generar frases y crear historias creativas en español y fr
 
 ```
 cuentahistorias/
+├── assets/
+│   ├── db/
+│   │   ├── conceptos.json
+│   │   ├── tiempos-verbales.json
+│   │   └── traducciones.json
+│   ├── scripts/
+│   │   ├── api.js
+│   │   └── app.js
+│   └── styles/
+│       └── styles.css
 ├── index.html
-├── styles.css
-├── script.js
 └── README.md
 ```
 
 ## 🌟 Características
 
-- 50 verbos comunes en español
-- 50 verbos comunes en francés
-- 30+ conceptos para historias
-- Enlaces al conjugador de Reverso 
+- 65+ conceptos diversos para historias en cada idioma
+- 6-8 tiempos verbales por idioma
+- Sistema de consultas tipo API preparado para escalabilidad
+- Animaciones y efectos visuales (confeti, transiciones)
+- Arquitectura modular y mantenible 

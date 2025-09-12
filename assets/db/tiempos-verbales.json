@@ -1,0 +1,20 @@
+{
+  "español": [
+    "Presente",
+    "Pretérito Perfecto Simple",
+    "Pretérito Imperfecto", 
+    "Pretérito Perfecto Compuesto",
+    "Futuro Simple",
+    "Condicional Simple"
+  ],
+  "francés": [
+    "Présent",
+    "Imparfait",
+    "Passé Composé",
+    "Plus-que-parfait",
+    "Passé Simple",
+    "Futur Simple",
+    "Impératif Présent",
+    "Futur Proche"
+  ]
+}

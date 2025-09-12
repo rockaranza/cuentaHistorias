@@ -1,0 +1,22 @@
+{
+  "español": [
+    "escuela", "queso", "sol", "mar", "árbol", "casa", "perro", "gato", "libro", "coche",
+    "flor", "luna", "estrella", "nube", "lluvia", "nieve", "montaña", "río", "puente", "puerta",
+    "ventana", "mesa", "silla", "cama", "cocina", "baño", "jardín", "parque", "calle", "ciudad",
+    "pueblo", "país", "mundo", "universo", "tiempo", "amor", "amistad", "familia", "trabajo",
+    "música", "arte", "deporte", "comida", "agua", "fuego", "aire", "tierra", "color", "forma",
+    "sonido", "silencio", "luz", "sombra", "verdad", "mentira", "felicidad", "tristeza", "miedo",
+    "valentía", "sabiduría", "conocimiento", "imaginación", "creatividad", "libertad", "justicia",
+    "paz", "guerra", "vida", "muerte", "nacimiento", "crecimiento", "cambio", "movimiento"
+  ],
+  "francés": [
+    "école", "fromage", "soleil", "mer", "arbre", "maison", "chien", "chat", "livre", "voiture",
+    "fleur", "lune", "étoile", "nuage", "pluie", "neige", "montagne", "rivière", "pont", "porte",
+    "fenêtre", "table", "chaise", "lit", "cuisine", "salle de bain", "jardin", "parc", "rue", "ville",
+    "village", "pays", "monde", "univers", "temps", "amour", "amitié", "famille", "travail",
+    "musique", "art", "sport", "nourriture", "eau", "feu", "air", "terre", "couleur", "forme",
+    "son", "silence", "lumière", "ombre", "vérité", "mensonge", "bonheur", "tristesse", "peur",
+    "courage", "sagesse", "connaissance", "imagination", "créativité", "liberté", "justice",
+    "paix", "guerre", "vie", "mort", "naissance", "croissance", "changement", "mouvement"
+  ]
+}

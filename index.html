@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CuentaHistorias - Generador de Frases e Historias</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/styles/styles.css">
 </head>
 <body>
     <div class="container">
@@ -24,10 +24,16 @@
             <!-- Sección de Generación de Historias -->
             <section class="story-section">
                 <h2>📖 Generar Historias</h2>
-                <p class="help-text">
-                    Presiona uno de los botones para obtener 3 conceptos aleatorios y un tiempo verbal en el idioma seleccionado. 
-                    Luego inventa una mini historia que incluya esos conceptos y use el tiempo verbal indicado.
-                </p>
+                
+                <div class="story-instructions">
+                    <h4>📝 Instrucciones:</h4>
+                    <ul>
+                        <li>Presiona uno de los botones para generar conceptos</li>
+                        <li>Crea una mini historia usando los 3 conceptos</li>
+                        <li>Usa el tiempo verbal indicado</li>
+                        <li>¡Sé creativo y diviértete!</li>
+                    </ul>
+                </div>
                 
                 <div class="buttons-container">
                     <button id="generateStorySpanishBtn" class="btn btn-story-es">🇪🇸 Generar Historia en Español</button>
@@ -37,14 +43,6 @@
                 <div id="storyResult" class="result-box hidden">
                     <h3>Tus conceptos para la historia:</h3>
                     <div id="conceptsContainer" class="concepts-grid"></div>
-                    <div class="story-instructions">
-                        <h4>📝 Instrucciones:</h4>
-                        <ul>
-                            <li>Crea una mini historia usando los 3 conceptos</li>
-                            <li>Usa el tiempo verbal indicado</li>
-                            <li>¡Sé creativo y diviértete!</li>
-                        </ul>
-                    </div>
                 </div>
             </section>
         </main>
@@ -62,6 +60,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script src="script.js"></script>
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/app.js"></script>
 </body>
 </html> 
