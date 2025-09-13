@@ -16,5 +16,15 @@
     "Futur Simple",
     "Impératif Présent",
     "Futur Proche"
+  ],
+  "english": [
+    "Simple Present",
+    "Simple Past",
+    "Present Continuous",
+    "Past Continuous",
+    "Present Perfect",
+    "Past Perfect",
+    "Future Simple",
+    "Future Continuous"
   ]
 }

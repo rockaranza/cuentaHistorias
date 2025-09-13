@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de Placoteurs - Generador de Frases e Historias</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/styles/styles.css">
+</head>
+<body>
+    <!-- Selector de idioma flotante -->
+    <div class="language-selector-floating">
+        <button id="languageToggle" class="btn-language">🌐</button>
+    </div>
+
+    <div class="container">
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-main">Sobre Placoteurs</span>
+                        <span class="title-sparkle">✨</span>
+                    </h1>
+                    <p class="hero-subtitle" data-translate="aboutSubtitle">Una herramienta para fomentar la producción oral en el aprendizaje de idiomas</p>
+                </div>
+            </section>
+
+            <!-- Contenido principal -->
+            <section class="about-content">
+                <div class="about-section">
+                    <h2 data-translate="aboutTitle">¿Qué es Placoteurs?</h2>
+                    <p data-translate="aboutDescription1">Placoteurs nace para ayudar a las personas que están aprendiendo un idioma a fomentar la producción oral, proponiendo conceptos para que puedan generar una historia.</p>
+                    <p data-translate="aboutDescription2">Este proyecto surge de la necesidad de incorporarse a la sociedad en Québec, donde participé de los cursos de francización otorgados por la provincia de Québec. Como forma de retribución, quiero aportar con una pequeña herramienta a todo estudiante, en especial a los que aprenden el francés en Québec.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2 data-translate="aboutHowItWorks">¿Cómo funciona?</h2>
+                    <div class="steps-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <p data-translate="step1">Presiona el botón "Placote!" para generar 3 conceptos aleatorios</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <p data-translate="step2">Usa estos conceptos para crear una historia oral o escrita</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <p data-translate="step3">Practica tu expresión en el idioma que estás aprendiendo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de contacto -->
+                <div class="about-section">
+                    <h2 data-translate="contactTitle">¡Contáctanos!</h2>
+                    <p data-translate="contactDescription">¿Tienes sugerencias, reportes de errores, o quieres aportar al proyecto? ¡Nos encantaría escucharte!</p>
+                    
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="contactName" data-translate="contactName">Nombre</label>
+                            <input type="text" id="contactName" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail" data-translate="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactSubject" data-translate="contactSubject">Asunto</label>
+                            <select id="contactSubject" name="subject" required>
+                                <option value="" data-translate="selectSubject">Selecciona un asunto</option>
+                                <option value="feedback" data-translate="feedback">Feedback/Sugerencias</option>
+                                <option value="bug" data-translate="bugReport">Reporte de errores</option>
+                                <option value="contribution" data-translate="contribution">Contribución al proyecto</option>
+                                <option value="other" data-translate="other">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage" data-translate="contactMessage">Mensaje</label>
+                            <textarea id="contactMessage" name="message" rows="5" required data-translate="contactMessagePlaceholder" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-contact" data-translate="sendMessage">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <!-- Apoyo económico -->
+                <div class="about-section support-section">
+                    <h2 data-translate="supportTitle">¿Te gusta el proyecto?</h2>
+                    <p data-translate="supportDescription">Si deseas apoyar el proyecto económicamente para mantener los costos del servidor y la manutención constante, puedes invitarme un café:</p>
+                    
+                    <div class="support-links">
+                        <a href="https://ko-fi.com/mankelab" target="_blank" class="coffee-link" data-translate="buyMeCoffee">
+                            ☕ Invítame un café
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Otros proyectos -->
+                <div class="about-section">
+                    <h2 data-translate="otherProjectsTitle">Otros proyectos</h2>
+                    <p data-translate="otherProjectsDescription">También te invito a visitar mi otro proyecto:</p>
+                    
+                    <div class="project-links">
+                        <a href="https://conjugue.online" target="_blank" class="project-link">
+                            🌐 Conjugue.online
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Botón de regreso -->
+                <div class="back-section">
+                    <a href="index.html" class="btn-back" data-translate="backToApp">← Volver a la aplicación</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="coffee-links">
+                <a href="https://ko-fi.com/mankelab" target="_blank" class="coffee-link" data-translate="buyMeCoffee">
+                    ☕ Invítame un café
+                </a>
+            </div>
+            <div class="developer-credit">
+                <p data-translate="footer">Desarrollado por <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a> con ❤️ para todos los que siguen sus sueños</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/languageManager.js"></script>
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>

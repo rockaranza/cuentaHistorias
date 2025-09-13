@@ -1,13 +1,11 @@
 /**
- * CuentaHistorias - Aplicación principal
+ * Placoteurs - Aplicación principal
  * Generador de historias creativas con consultas tipo API
  */
 
-class CuentaHistoriasApp {
+class PlacoteursApp {
     constructor() {
-        this.idiomaInterfaz = 'español';
         this.elementos = {};
-        this.traducciones = {};
         this.init();
     }
 
@@ -16,9 +14,6 @@ class CuentaHistoriasApp {
      */
     async init() {
         try {
-            // Cargar traducciones iniciales
-            await this.cargarTraducciones();
-            
             // Inicializar cuando el DOM esté listo
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', () => this.initDOM());
@@ -34,47 +29,35 @@ class CuentaHistoriasApp {
     /**
      * Inicializa elementos del DOM y event listeners
      */
-    initDOM() {
+    async initDOM() {
         // Cachear elementos del DOM
         this.elementos = {
-            storyResult: document.getElementById('storyResult'),
             conceptsContainer: document.getElementById('conceptsContainer'),
-            generateStorySpanishBtn: document.getElementById('generateStorySpanishBtn'),
-            generateStoryFrenchBtn: document.getElementById('generateStoryFrenchBtn'),
-            languageToggle: document.getElementById('languageToggle')
+            playBtn: document.getElementById('playBtn')
         };
+
+        // Inicializar gestor de idiomas
+        await languageManager.init();
 
         // Configurar event listeners
         this.setupEventListeners();
         
-        // Aplicar traducción inicial
-        this.aplicarTraduccion();
-        
         // Configurar observador para animaciones
         this.setupAnimationObserver();
+        
+        // Escuchar cambios de idioma
+        this.setupLanguageListeners();
     }
 
     /**
      * Configura todos los event listeners
      */
     setupEventListeners() {
-        // Botones de generación de historias
-        if (this.elementos.generateStorySpanishBtn) {
-            this.elementos.generateStorySpanishBtn.addEventListener('click', () => {
-                this.generarConceptos('español');
-            });
-        }
-
-        if (this.elementos.generateStoryFrenchBtn) {
-            this.elementos.generateStoryFrenchBtn.addEventListener('click', () => {
-                this.generarConceptos('francés');
-            });
-        }
-
-        // Botón de cambio de idioma
-        if (this.elementos.languageToggle) {
-            this.elementos.languageToggle.addEventListener('click', () => {
-                this.cambiarIdiomaInterfaz();
+        // Botón de jugar
+        if (this.elementos.playBtn) {
+            this.elementos.playBtn.addEventListener('click', () => {
+                const currentLanguage = languageManager.getCurrentLanguage();
+                this.generarConceptos(currentLanguage);
             });
         }
 
@@ -93,21 +76,27 @@ class CuentaHistoriasApp {
     }
 
     /**
-     * Carga traducciones desde la API
+     * Configura listeners para eventos de cambio de idioma
      */
-    async cargarTraducciones() {
-        try {
-            this.traducciones = {
-                español: await dataAPI.getTranslations('español'),
-                francés: await dataAPI.getTranslations('francés')
-            };
-        } catch (error) {
-            console.error('Error cargando traducciones:', error);
-            // Fallback a traducciones básicas
-            this.traducciones = {
-                español: { titulo: '📚 CuentaHistorias', error: 'Error al cargar traducciones' },
-                francés: { titulo: '📚 CompteHistoires', error: 'Erreur de chargement des traductions' }
-            };
+    setupLanguageListeners() {
+        // Escuchar cambios de idioma del languageManager
+        document.addEventListener('languageChanged', (event) => {
+            const { newLanguage, translations } = event.detail;
+            console.log(`✅ Idioma cambiado a: ${newLanguage}`);
+            
+            // Actualizar cualquier contenido específico de la app si es necesario
+            this.onLanguageChanged(newLanguage, translations);
+        });
+    }
+
+    /**
+     * Maneja cambios de idioma específicos de la aplicación
+     */
+    onLanguageChanged(newLanguage, translations) {
+        // Limpiar resultados si existen para evitar contenido mixto
+        if (this.elementos.conceptsContainer && !this.elementos.conceptsContainer.classList.contains('hidden')) {
+            // Opcional: Limpiar o mantener resultados según UX deseada
+            this.elementos.conceptsContainer.classList.add('hidden');
         }
     }
 
@@ -119,14 +108,11 @@ class CuentaHistoriasApp {
             // Mostrar loading (opcional)
             this.mostrarLoading();
 
-            // Consultar conceptos y tiempo verbal usando la API
-            const [conceptos, tiempoVerbal] = await Promise.all([
-                dataAPI.getRandomElements('conceptos', idioma, 3),
-                dataAPI.getRandomElement('tiempos-verbales', idioma)
-            ]);
+            // Consultar solo conceptos usando la API
+            const conceptos = await dataAPI.getRandomElements('conceptos', idioma, 3);
 
             // Renderizar resultados
-            this.renderizarConceptos(conceptos, tiempoVerbal, idioma);
+            this.renderizarConceptos(conceptos, idioma);
             
             // Mostrar resultado con animación
             this.mostrarResultado();
@@ -140,7 +126,7 @@ class CuentaHistoriasApp {
     /**
      * Renderiza los conceptos en el DOM
      */
-    renderizarConceptos(conceptos, tiempoVerbal, idioma) {
+    renderizarConceptos(conceptos, idioma) {
         if (!this.elementos.conceptsContainer) return;
 
         // Limpiar contenedor
@@ -152,10 +138,6 @@ class CuentaHistoriasApp {
             this.elementos.conceptsContainer.appendChild(conceptCard);
         });
 
-        // Agregar tarjeta del tiempo verbal
-        const tiempoCard = this.crearTarjetaTiempo(tiempoVerbal, idioma);
-        this.elementos.conceptsContainer.appendChild(tiempoCard);
-
         // Configurar event listeners para checkboxes
         this.configurarCheckboxes();
     }
@@ -166,8 +148,9 @@ class CuentaHistoriasApp {
     crearTarjetaConcepto(concepto, index) {
         const conceptCard = document.createElement('div');
         conceptCard.className = 'concept-card';
+        const translations = languageManager.getCurrentTranslations();
         conceptCard.innerHTML = `
-            <h4>${this.traducciones[this.idiomaInterfaz].concepto} ${index + 1}</h4>
+            <h4>${translations.concepto} ${index + 1}</h4>
             <p>${concepto}</p>
             <div class="validation-ticket">
                 <div class="ticket-checkbox">
@@ -181,30 +164,6 @@ class CuentaHistoriasApp {
         return conceptCard;
     }
 
-    /**
-     * Crea la tarjeta del tiempo verbal
-     */
-    crearTarjetaTiempo(tiempoVerbal, idioma) {
-        const tiempoCard = document.createElement('div');
-        tiempoCard.className = 'concept-card tiempo-card';
-        tiempoCard.innerHTML = `
-            <h4>${this.traducciones[this.idiomaInterfaz].tiempoVerbal}</h4>
-            <p>${tiempoVerbal}</p>
-            <small>${idioma === 'español' ? '🇪🇸' : '🇫🇷'} ${idioma}</small>
-            <div class="extra-points-badge">
-                <span class="extra-points-text">${this.traducciones[this.idiomaInterfaz].puntosExtra}</span>
-            </div>
-            <div class="validation-ticket">
-                <div class="ticket-checkbox">
-                    <input type="checkbox" id="tiempo-${Date.now()}" class="concept-checkbox">
-                    <label for="tiempo-${Date.now()}" class="checkbox-label">
-                        <span class="checkmark">✓</span>
-                    </label>
-                </div>
-            </div>
-        `;
-        return tiempoCard;
-    }
 
     /**
      * Configura event listeners para checkboxes
@@ -228,8 +187,8 @@ class CuentaHistoriasApp {
      * Verifica si se completaron todos los conceptos
      */
     verificarCompletado() {
-        const conceptCards = document.querySelectorAll('.concept-card:not(.tiempo-card)');
-        const completedCards = document.querySelectorAll('.concept-card:not(.tiempo-card).completed');
+        const conceptCards = document.querySelectorAll('.concept-card');
+        const completedCards = document.querySelectorAll('.concept-card.completed');
 
         if (conceptCards.length === 3 && completedCards.length === 3) {
             this.mostrarCelebracion();
@@ -243,10 +202,12 @@ class CuentaHistoriasApp {
     mostrarCelebracion() {
         const mensaje = document.createElement('div');
         mensaje.className = 'celebration-message';
+        const translations = languageManager.getCurrentTranslations();
+        
         mensaje.innerHTML = `
             <div class="celebration-content">
-                <h3>${this.traducciones[this.idiomaInterfaz].excelente}</h3>
-                <p>${this.traducciones[this.idiomaInterfaz].mensajeCelebracion}</p>
+                <h3>${translations.excelente}</h3>
+                <p>${translations.mensajeCelebracion}</p>
                 <div class="celebration-emoji">✨🌟✨</div>
             </div>
         `;
@@ -289,81 +250,14 @@ class CuentaHistoriasApp {
         fire(0.1, { spread: 120, startVelocity: 45 });
     }
 
-    /**
-     * Cambia el idioma de la interfaz
-     */
-    async cambiarIdiomaInterfaz() {
-        this.idiomaInterfaz = this.idiomaInterfaz === 'español' ? 'francés' : 'español';
-        await this.aplicarTraduccion();
-    }
-
-    /**
-     * Aplica las traducciones a la interfaz
-     */
-    async aplicarTraduccion() {
-        const t = this.traducciones[this.idiomaInterfaz];
-        if (!t) return;
-
-        // Header
-        const headerH1 = document.querySelector('header h1');
-        if (headerH1) headerH1.textContent = t.titulo;
-
-        const subtitle = document.querySelector('.subtitle');
-        if (subtitle) subtitle.textContent = t.subtitulo;
-
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        if (motivationalQuote) motivationalQuote.textContent = t.fraseMotivacional;
-
-        // Sección de historias
-        const storySectionH2 = document.querySelector('.story-section h2');
-        if (storySectionH2) storySectionH2.textContent = t.generarHistorias;
-
-        // Botones
-        if (this.elementos.generateStorySpanishBtn) {
-            this.elementos.generateStorySpanishBtn.textContent = t.botonHistoriasEspanol;
-        }
-        if (this.elementos.generateStoryFrenchBtn) {
-            this.elementos.generateStoryFrenchBtn.textContent = t.botonHistoriasFrances;
-        }
-        if (this.elementos.languageToggle) {
-            this.elementos.languageToggle.textContent = t.cambiarIdioma;
-        }
-
-        // Contenido dinámico
-        const storySectionH3 = document.querySelector('.story-section h3');
-        if (storySectionH3) storySectionH3.textContent = t.tusConceptos;
-
-        const storyInstructionsH4 = document.querySelector('.story-instructions h4');
-        if (storyInstructionsH4) storyInstructionsH4.textContent = t.instrucciones;
-
-        // Instrucciones
-        const instrucciones = document.querySelectorAll('.story-instructions li');
-        if (instrucciones.length >= 4) {
-            instrucciones[0].textContent = t.instruccion1;
-            instrucciones[1].textContent = t.instruccion2;
-            instrucciones[2].textContent = t.instruccion3;
-            instrucciones[3].textContent = t.instruccion4;
-        }
-
-        // Footer
-        const footerText = document.querySelector('.developer-credit p');
-        if (footerText) {
-            footerText.innerHTML = t.footer.includes('ocaranza.cl') 
-                ? t.footer 
-                : `${t.footer} <a href="https://ocaranza.cl" target="_blank">ocaranza.cl</a>`;
-        }
-    }
 
     /**
      * Muestra el resultado con animación
      */
     mostrarResultado() {
-        if (this.elementos.storyResult) {
-            this.elementos.storyResult.classList.remove('hidden');
-            this.elementos.storyResult.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
+        if (this.elementos.conceptsContainer) {
+            this.elementos.conceptsContainer.classList.remove('hidden');
+            // Los conceptos aparecen arriba del botón en el mismo contenedor
         }
     }
 
@@ -425,4 +319,59 @@ class CuentaHistoriasApp {
 }
 
 // Inicializar la aplicación
-const app = new CuentaHistoriasApp();
+const app = new PlacoteursApp();
+
+// Funcionalidad del formulario de contacto (solo en about.html)
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener datos del formulario
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+            
+            // Obtener traducciones actuales
+            const translations = languageManager.getCurrentTranslations();
+            
+            // Validar datos
+            if (!data.name || !data.email || !data.subject || !data.message) {
+                const errorMessage = translations.contactValidationError || 'Por favor, completa todos los campos del formulario.';
+                alert(errorMessage);
+                return;
+            }
+            
+            // Simular envío (aquí podrías integrar con un servicio real)
+            const submitBtn = contactForm.querySelector('.btn-contact');
+            const originalText = submitBtn.textContent;
+            
+            const sendingText = translations.contactSending || 'Enviando...';
+            const successMessage = translations.contactSuccess || '¡Mensaje enviado con éxito! Te responderemos pronto.';
+            
+            submitBtn.textContent = sendingText;
+            submitBtn.disabled = true;
+            
+            // Simular delay de envío
+            setTimeout(() => {
+                // Aquí podrías hacer una petición real a tu servidor
+                console.log('Datos del formulario:', data);
+                
+                // Mostrar mensaje de éxito
+                alert(successMessage);
+                
+                // Resetear formulario
+                contactForm.reset();
+                
+                // Restaurar botón
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    }
+});

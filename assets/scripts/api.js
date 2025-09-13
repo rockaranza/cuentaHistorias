@@ -1,5 +1,5 @@
 /**
- * API de Datos para CuentaHistorias
+ * API de Datos para Placoteurs
  * Simula consultas a una base de datos para facilitar migración futura a API real
  */
 

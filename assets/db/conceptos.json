@@ -18,5 +18,15 @@
     "son", "silence", "lumière", "ombre", "vérité", "mensonge", "bonheur", "tristesse", "peur",
     "courage", "sagesse", "connaissance", "imagination", "créativité", "liberté", "justice",
     "paix", "guerre", "vie", "mort", "naissance", "croissance", "changement", "mouvement"
+  ],
+  "english": [
+    "school", "cheese", "sun", "sea", "tree", "house", "dog", "cat", "book", "car",
+    "flower", "moon", "star", "cloud", "rain", "snow", "mountain", "river", "bridge", "door",
+    "window", "table", "chair", "bed", "kitchen", "bathroom", "garden", "park", "street", "city",
+    "village", "country", "world", "universe", "time", "love", "friendship", "family", "work",
+    "music", "art", "sport", "food", "water", "fire", "air", "earth", "color", "shape",
+    "sound", "silence", "light", "shadow", "truth", "lie", "happiness", "sadness", "fear",
+    "courage", "wisdom", "knowledge", "imagination", "creativity", "freedom", "justice",
+    "peace", "war", "life", "death", "birth", "growth", "change", "movement"
   ]
 }
