@@ -6,6 +6,10 @@
 class PlacoteursApp {
     constructor() {
         this.elementos = {};
+        this.isCountdownRunning = false; // Control para evitar múltiples ejecuciones
+        this.currentAudio = null; // Control para evitar superposición de sonidos
+        this.lastSoundTime = 0; // Control de timing para evitar sonidos duplicados
+        this.isSoundPlaying = false; // Control para evitar reproducción simultánea
         this.init();
     }
 
@@ -47,6 +51,9 @@ class PlacoteursApp {
         
         // Escuchar cambios de idioma
         this.setupLanguageListeners();
+        
+        // Escuchar redimensionamiento de ventana
+        this.setupResizeListener();
     }
 
     /**
@@ -104,9 +111,22 @@ class PlacoteursApp {
      * Genera conceptos para historia usando la API
      */
     async generarConceptos(idioma) {
+        // Evitar múltiples ejecuciones simultáneas
+        if (this.isCountdownRunning) {
+            return;
+        }
+
         try {
-            // Mostrar loading (opcional)
-            this.mostrarLoading();
+            this.isCountdownRunning = true;
+            
+            // Deshabilitar botón durante la cuenta regresiva
+            if (this.elementos.playBtn) {
+                this.elementos.playBtn.disabled = true;
+                this.elementos.playBtn.style.opacity = '0.6';
+            }
+            
+            // Iniciar cuenta regresiva
+            await this.iniciarCuentaRegresiva(idioma);
 
             // Consultar solo conceptos usando la API
             const conceptos = await dataAPI.getRandomElements('conceptos', idioma, 3);
@@ -120,7 +140,77 @@ class PlacoteursApp {
         } catch (error) {
             console.error('Error generando conceptos:', error);
             this.mostrarError('Error al generar conceptos. Inténtalo de nuevo.');
+        } finally {
+            this.isCountdownRunning = false;
+            
+            // Re-habilitar botón
+            if (this.elementos.playBtn) {
+                this.elementos.playBtn.disabled = false;
+                this.elementos.playBtn.style.opacity = '1';
+            }
         }
+    }
+
+    /**
+     * Inicia la cuenta regresiva espectacular
+     */
+    async iniciarCuentaRegresiva(idioma) {
+        const countdownOverlay = document.getElementById('countdownOverlay');
+        const countdownText = document.getElementById('countdownText');
+        
+        // Asegurar que el languageManager esté inicializado
+        if (!languageManager.translations) {
+            await languageManager.init();
+        }
+        
+        const translations = languageManager.getCurrentTranslations();
+        
+        if (!countdownOverlay || !countdownText) return;
+
+        // Mostrar overlay
+        countdownOverlay.classList.remove('hidden');
+        countdownOverlay.classList.add('show');
+
+        // Secuencia de cuenta regresiva
+        const sequence = [
+            { text: translations.countdown3, duration: 1000, sound: true },
+            { text: translations.countdown2, duration: 1000, sound: false },
+            { text: translations.countdown1, duration: 1000, sound: false },
+            { text: translations.countdownPlacote, duration: 800, special: true }
+        ];
+
+        for (let i = 0; i < sequence.length; i++) {
+            const step = sequence[i];
+            
+            // Aplicar clase especial para "Placote!"
+            if (step.special) {
+                countdownText.classList.add('placote');
+            } else {
+                countdownText.classList.remove('placote');
+            }
+            
+            // Actualizar texto primero
+            countdownText.textContent = step.text;
+            
+            // Reproducir sonido de countdown para los números (solo una vez)
+            if (step.sound) {
+                console.log('🎵 Llamando sonido para:', step.text);
+                this.reproducirSonidoCountdown();
+            }
+            
+            // Esperar la duración especificada
+            await new Promise(resolve => setTimeout(resolve, step.duration));
+        }
+
+        // Ocultar overlay con animación
+        countdownOverlay.classList.remove('show');
+        
+        // Esperar a que termine la animación de salida
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Ocultar completamente
+        countdownOverlay.classList.add('hidden');
+        countdownText.classList.remove('placote');
     }
 
     /**
@@ -178,9 +268,36 @@ class PlacoteursApp {
                 } else {
                     conceptCard.classList.remove('completed');
                 }
+                this.actualizarEfectosTemblor();
                 this.verificarCompletado();
             });
         });
+    }
+
+    /**
+     * Actualiza los efectos de temblor según el progreso
+     */
+    actualizarEfectosTemblor() {
+        // Solo aplicar efectos en escritorio
+        if (window.innerWidth < 769) return;
+
+        const conceptCards = document.querySelectorAll('.concept-card');
+        const completedCards = document.querySelectorAll('.concept-card.completed');
+        const completedCount = completedCards.length;
+
+        // Remover todas las clases de temblor
+        conceptCards.forEach(card => {
+            card.classList.remove('shake-light', 'shake-medium', 'shake-intense');
+        });
+
+        // Aplicar efectos según el progreso
+        if (completedCount === 2) {
+            // Tercer concepto empieza a temblar cuando las tarjetas 1 y 2 están completadas
+            const thirdCard = conceptCards[2];
+            if (thirdCard && !thirdCard.classList.contains('completed')) {
+                thirdCard.classList.add('shake-light');
+            }
+        }
     }
 
     /**
@@ -226,10 +343,81 @@ class PlacoteursApp {
     }
 
     /**
+     * Reproduce el sonido de popping
+     */
+    reproducirSonidoPopping() {
+        try {
+            const audio = new Audio('assets/sounds/popping.mp3');
+            audio.volume = 0.7; // Volumen moderado
+            audio.play().catch(error => {
+                console.log('No se pudo reproducir el sonido:', error);
+            });
+        } catch (error) {
+            console.log('Error al cargar el sonido:', error);
+        }
+    }
+
+    /**
+     * Reproduce el sonido de countdown (solo una vez por llamada)
+     */
+    reproducirSonidoCountdown() {
+        const now = Date.now();
+        console.log('🔊 Reproduciendo sonido countdown - Timestamp:', now);
+        
+        // Evitar sonidos duplicados en menos de 500ms
+        if (now - this.lastSoundTime < 500) {
+            console.log('🚫 Sonido bloqueado - muy reciente');
+            return;
+        }
+        
+        // Evitar reproducción si ya hay un sonido activo
+        if (this.isSoundPlaying) {
+            console.log('🚫 Sonido bloqueado - ya se está reproduciendo');
+            return;
+        }
+        
+        this.lastSoundTime = now;
+        this.isSoundPlaying = true;
+        
+        try {
+            // Detener y limpiar sonido anterior si existe
+            if (this.currentAudio) {
+                this.currentAudio.pause();
+                this.currentAudio.currentTime = 0;
+                this.currentAudio = null;
+            }
+            
+            // Crear nuevo sonido con configuración estricta
+            this.currentAudio = new Audio('assets/sounds/countdown.wav');
+            this.currentAudio.volume = 0.6; // Volumen moderado
+            this.currentAudio.loop = false; // Asegurar que no se repita
+            this.currentAudio.preload = 'auto'; // Precargar para evitar delays
+            
+            // Event listener para limpiar cuando termine
+            this.currentAudio.addEventListener('ended', () => {
+                console.log('🎵 Sonido terminado');
+                this.currentAudio = null;
+                this.isSoundPlaying = false;
+            });
+            
+            this.currentAudio.play().catch(error => {
+                console.log('No se pudo reproducir el sonido de countdown:', error);
+                this.isSoundPlaying = false;
+            });
+        } catch (error) {
+            console.log('Error al cargar el sonido de countdown:', error);
+            this.isSoundPlaying = false;
+        }
+    }
+
+    /**
      * Lanza animación de confeti
      */
     lanzarConfeti() {
         if (typeof confetti === 'undefined') return;
+
+        // Reproducir sonido de popping
+        this.reproducirSonidoPopping();
 
         const count = 200;
         const defaults = { origin: { y: 0.7 } };
@@ -315,6 +503,24 @@ class PlacoteursApp {
             element.style.opacity = '1';
             element.style.transform = 'translateY(0)';
         }, 100);
+    }
+
+    /**
+     * Configura listener para redimensionamiento de ventana
+     */
+    setupResizeListener() {
+        window.addEventListener('resize', () => {
+            // Si cambia a móvil, remover todos los efectos de temblor
+            if (window.innerWidth < 769) {
+                const conceptCards = document.querySelectorAll('.concept-card');
+                conceptCards.forEach(card => {
+                    card.classList.remove('shake-light', 'shake-medium', 'shake-intense');
+                });
+            } else {
+                // Si cambia a escritorio, actualizar efectos
+                this.actualizarEfectosTemblor();
+            }
+        });
     }
 }
 

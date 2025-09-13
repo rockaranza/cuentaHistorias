@@ -406,6 +406,10 @@ class LanguageManager {
             button.textContent = t.buyMeCoffee;
         });
 
+        // Mensaje de acción del botón principal
+        const actionHint = document.querySelector('[data-translate="actionHint"]');
+        if (actionHint) actionHint.textContent = t.actionHint;
+
         // Mensajes del formulario (se actualizan dinámicamente cuando se necesitan)
         // No necesitamos traducir estos aquí porque se obtienen dinámicamente en el JavaScript del formulario
     }

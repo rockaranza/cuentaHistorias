@@ -666,6 +666,195 @@ h2 {
     font-weight: 500;
 }
 
+/* Overlay de cuenta regresiva */
+.countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.countdown-overlay.hidden {
+    display: none;
+}
+
+.countdown-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.countdown-content {
+    text-align: center;
+    position: relative;
+}
+
+.countdown-text {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    animation: countdownPulse 1s ease-in-out infinite;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+}
+
+/* Animación de partículas de fondo */
+.countdown-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.countdown-particles::before,
+.countdown-particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    animation: floatParticles 3s ease-in-out infinite;
+}
+
+.countdown-particles::before {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.countdown-particles::after {
+    top: 60%;
+    right: 20%;
+    animation-delay: 1.5s;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Animaciones */
+@keyframes countdownPulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 50px rgba(255, 255, 255, 1);
+    }
+}
+
+@keyframes floatParticles {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 1;
+    }
+}
+
+/* Animación especial para "Placote!" */
+.countdown-text.placote {
+    color: #ff6b6b;
+    text-shadow: 0 0 40px rgba(255, 107, 107, 0.9);
+    animation: placoteExplosion 0.8s ease-out;
+}
+
+@keyframes placoteExplosion {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Efectos de temblor para las tarjetas de conceptos - Solo escritorio */
+@media (min-width: 769px) {
+    .concept-card.shake-light {
+        animation: shakeLight 0.5s ease-in-out infinite;
+    }
+
+
+    .concept-card.shake-medium {
+        animation: shakeMedium 0.4s ease-in-out infinite;
+    }
+
+    .concept-card.shake-intense {
+        animation: shakeIntense 0.3s ease-in-out infinite;
+    }
+}
+
+@keyframes shakeLight {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    10% { transform: translateX(-1px) translateY(-1px) rotate(-0.5deg); }
+    20% { transform: translateX(1px) translateY(1px) rotate(0.5deg); }
+    30% { transform: translateX(-1px) translateY(1px) rotate(-0.3deg); }
+    40% { transform: translateX(1px) translateY(-1px) rotate(0.3deg); }
+    50% { transform: translateX(-1px) translateY(0) rotate(-0.2deg); }
+    60% { transform: translateX(1px) translateY(0) rotate(0.2deg); }
+    70% { transform: translateX(0) translateY(-1px) rotate(-0.1deg); }
+    80% { transform: translateX(0) translateY(1px) rotate(0.1deg); }
+    90% { transform: translateX(-0.5px) translateY(-0.5px) rotate(-0.05deg); }
+}
+
+
+@keyframes shakeMedium {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    10% { transform: translateX(-2px) translateY(-2px) rotate(-1deg); }
+    20% { transform: translateX(2px) translateY(2px) rotate(1deg); }
+    30% { transform: translateX(-2px) translateY(2px) rotate(-0.8deg); }
+    40% { transform: translateX(2px) translateY(-2px) rotate(0.8deg); }
+    50% { transform: translateX(-2px) translateY(0) rotate(-0.5deg); }
+    60% { transform: translateX(2px) translateY(0) rotate(0.5deg); }
+    70% { transform: translateX(0) translateY(-2px) rotate(-0.3deg); }
+    80% { transform: translateX(0) translateY(2px) rotate(0.3deg); }
+    90% { transform: translateX(-1px) translateY(-1px) rotate(-0.2deg); }
+}
+
+@keyframes shakeIntense {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    5% { transform: translateX(-3px) translateY(-3px) rotate(-1.5deg); }
+    10% { transform: translateX(3px) translateY(3px) rotate(1.5deg); }
+    15% { transform: translateX(-3px) translateY(3px) rotate(-1.2deg); }
+    20% { transform: translateX(3px) translateY(-3px) rotate(1.2deg); }
+    25% { transform: translateX(-3px) translateY(0) rotate(-0.8deg); }
+    30% { transform: translateX(3px) translateY(0) rotate(0.8deg); }
+    35% { transform: translateX(0) translateY(-3px) rotate(-0.5deg); }
+    40% { transform: translateX(0) translateY(3px) rotate(0.5deg); }
+    45% { transform: translateX(-2px) translateY(-2px) rotate(-0.3deg); }
+    50% { transform: translateX(2px) translateY(2px) rotate(0.3deg); }
+    55% { transform: translateX(-1px) translateY(-1px) rotate(-0.1deg); }
+    60% { transform: translateX(1px) translateY(1px) rotate(0.1deg); }
+    65% { transform: translateX(-0.5px) translateY(-0.5px) rotate(-0.05deg); }
+    70% { transform: translateX(0.5px) translateY(0.5px) rotate(0.05deg); }
+    75% { transform: translateX(-0.3px) translateY(-0.3px) rotate(-0.02deg); }
+    80% { transform: translateX(0.3px) translateY(0.3px) rotate(0.02deg); }
+    85% { transform: translateX(-0.1px) translateY(-0.1px) rotate(-0.01deg); }
+    90% { transform: translateX(0.1px) translateY(0.1px) rotate(0.01deg); }
+    95% { transform: translateX(-0.05px) translateY(-0.05px) rotate(-0.005deg); }
+}
+
 /* Responsive para móvil */
 @media (max-width: 768px) {
     .hero-section {
@@ -707,6 +896,11 @@ h2 {
     
     .action-hint {
         font-size: 1rem;
+    }
+    
+    /* Cuenta regresiva responsive */
+    .countdown-text {
+        font-size: 3rem;
     }
     
     /* Selector de idioma móvil - esquina superior derecha */

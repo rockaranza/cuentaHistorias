@@ -47,7 +47,12 @@
     "contactValidationError": "Por favor, completa todos los campos del formulario.",
     "contactSending": "Enviando...",
     "contactSuccess": "¡Mensaje enviado con éxito! Te responderemos pronto.",
-    "buyMeCoffee": "☕ Invítame un café"
+    "buyMeCoffee": "☕ Invítame un café",
+    "countdown3": "3",
+    "countdown2": "2",
+    "countdown1": "1",
+    "countdownPlacote": "Placote!",
+    "actionHint": "✨ Haz clic para descubrir tus 3 conceptos mágicos ✨"
   },
   "francés": {
     "titulo": "Placoteurs",
@@ -97,7 +102,12 @@
     "contactValidationError": "Veuillez remplir tous les champs du formulaire.",
     "contactSending": "Envoi en cours...",
     "contactSuccess": "Message envoyé avec succès! Nous vous répondrons bientôt.",
-    "buyMeCoffee": "☕ Offrez-moi un café"
+    "buyMeCoffee": "☕ Offrez-moi un café",
+    "countdown3": "3",
+    "countdown2": "2",
+    "countdown1": "1",
+    "countdownPlacote": "Placote!",
+    "actionHint": "✨ Cliquez pour découvrir vos 3 concepts magiques ✨"
   },
   "english": {
     "titulo": "Placoteurs",
@@ -147,6 +157,11 @@
     "contactValidationError": "Please fill in all form fields.",
     "contactSending": "Sending...",
     "contactSuccess": "Message sent successfully! We'll get back to you soon.",
-    "buyMeCoffee": "☕ Buy me a coffee"
+    "buyMeCoffee": "☕ Buy me a coffee",
+    "countdown3": "3",
+    "countdown2": "2",
+    "countdown1": "1",
+    "countdownPlacote": "Placote!",
+    "actionHint": "✨ Click to discover your 3 magical concepts ✨"
   }
 }
